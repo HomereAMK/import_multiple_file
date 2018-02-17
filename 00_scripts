@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N import
+#PBS -o 98_log_files/import.dataset.out
+#PBS -l walltime=20:00:00
+#PBS -l mem=10g
+#PBS -l ncpus=1
+#PBS -r n
+
+cd $PBS_O_WORKDIR
+
+for i in $(awk '{print $1}' 00_scripts/files_accession.txt|grep -iv "model")
+
+do 
+
+fastq-dump $i --outdir 02_data/assembly/
+
+done
